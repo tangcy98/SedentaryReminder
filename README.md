@@ -29,13 +29,23 @@ xcode-select --install
 ```
 弹出提示时选择"安装"，等待下载完成。
 
-**第二步：克隆并编译项目**
+**第二步：生成 Xcode 项目并编译**
 ```bash
 # 克隆项目
 git clone https://github.com/tangcy98/SedentaryReminder.git
 cd SedentaryReminder
 
-# 编译项目（会自动签名）
+# 安装 XcodeGen（如果没有）
+# 方式1: Homebrew
+brew install xcodegen
+
+# 方式2: 直接下载
+# https://github.com/yorickpeterse/XcodeGen/releases
+
+# 生成 .xcodeproj 文件
+xcodegen generate
+
+# 编译项目
 xcodebuild -project SedentaryReminder.xcodeproj -scheme SedentaryReminder -configuration Debug build
 
 # 编译成功后，应用在这里：
