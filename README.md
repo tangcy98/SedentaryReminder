@@ -19,28 +19,49 @@ macOS 菜单栏久坐提醒应用 - 定时提醒你起来活动身体
 
 ## 使用方法
 
-### 编译运行
+### 终端命令行编译
 
-1. 克隆项目到本地
-   ```bash
-   git clone https://github.com/tangcy98/SedentaryReminder.git
-   cd SedentaryReminder
-   ```
+如果你不想打开 Xcode UI，可以用终端命令编译：
 
-2. 用 Xcode 打开项目
-   ```bash
-   open SedentaryReminder.xcodeproj
-   ```
-   或者直接打开文件夹后双击 `.xcodeproj` 文件
+**第一步：安装 Command Line Tools**
+```bash
+xcode-select --install
+```
+弹出提示时选择"安装"，等待下载完成。
 
-3. 编译运行
-   - 按 `Cmd + R` 或点击 Xcode 右上角的运行按钮
-   - 首次运行会提示签名配置，选择 "Sign to Run Locally" 即可
+**第二步：克隆并编译项目**
+```bash
+# 克隆项目
+git clone https://github.com/tangcy98/SedentaryReminder.git
+cd SedentaryReminder
 
-4. 使用应用
-   - 应用启动后会在 macOS 菜单栏显示图标（一个行走的小人）
-   - 点击图标可弹出设置面板
-   - 点击菜单栏空白区域可关闭设置面板
+# 编译项目（会自动签名）
+xcodebuild -project SedentaryReminder.xcodeproj -scheme SedentaryReminder -configuration Debug build
+
+# 编译成功后，应用在这里：
+# ~/Library/Developer/Xcode/DerivedData/SedentaryReminder-xxx/Build/Products/Debug/SedentaryReminder.app
+```
+
+**第三步：运行应用**
+```bash
+# 方式1：直接打开
+open ~/Library/Developer/Xcode/DerivedData/SedentaryReminder-*/Build/Products/Debug/SedentaryReminder.app
+
+# 方式2：复制到应用程序目录
+cp -r ~/Library/Developer/Xcode/DerivedData/SedentaryReminder-*/Build/Products/Debug/SedentaryReminder.app /Applications/
+```
+
+**第四步：设置开机启动**
+```bash
+# 启用开机自启
+defaults write com.apple.loginwindow AutoLaunchedApplicationDictionary -array-add -dict path="/Applications/SedentaryReminder.app"
+```
+
+**查看编译状态**
+```bash
+# 查看最后生成的 app 路径
+ls -la ~/Library/Developer/Xcode/DerivedData/SedentaryReminder-*/Build/Products/Debug/*.app
+```
 
 ### 设置开机启动
 
